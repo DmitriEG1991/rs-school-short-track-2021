@@ -1,26 +1,20 @@
-/**
- * Implement the Stack with a given interface via array.
- *
- * @example
- * const stack = new Stack();
- *
- * stack.push(1); // adds the element to the stack
- * stack.peek(); // returns the peek, but doesn't delete it, returns 1
- * stack.pop(); // returns the top element from stack and deletes it, returns 1
- * stack.pop(); // undefined
- *
- */
 class Stack {
-  push(/* element */) {
-    throw new Error('Not implemented');
+  constructor() {
+    this.mass = [];
   }
 
-  pop() {
-    throw new Error('Not implemented');
+  push(element) {
+    this.mass.push(element);
   }
 
   peek() {
-    throw new Error('Not implemented');
+    return this.mass[this.mass.length - 1];
+  }
+
+  pop() {
+    const a = this.mass[this.mass.length - 1];
+    this.mass.splice(this.mass.length - 1, 1);
+    return a;
   }
 }
 
