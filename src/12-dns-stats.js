@@ -1,27 +1,45 @@
-/**
- * Given an array of domains, return the object with the appearances of the DNS.
- *
- * @param {Array} domains
- * @return {Object}
- *
- * @example
- * domains = [
- *  'code.yandex.ru',
- *  'music.yandex.ru',
- *  'yandex.ru'
- * ]
- *
- * The result should be the following:
- * {
- *   '.ru': 3,
- *   '.ru.yandex': 3,
- *   '.ru.yandex.code': 1,
- *   '.ru.yandex.music': 1,
- * }
- *
- */
-function getDNSStats(/* domains */) {
-  throw new Error('Not implemented');
+function getDNSStats(domains) {
+  const str = domains.join();
+  let vrem = '';
+  let a = '';
+  const mass = [];
+  const obj = {};
+
+  for (let i = (str.length - 1); i >= 0; i--) {
+    if (str[i] === '.') {
+      vrem += str[i];
+      const b = vrem.split('').reverse().join('');
+      a += b;
+      vrem = '';
+      mass.push(a);
+    } else if (str[i] === ',') {
+      vrem += '.';
+      const b = vrem.split('').reverse().join('');
+      a += b;
+      vrem = '';
+      mass.push(a);
+      a = '';
+    } else if (i === 0) {
+      vrem += str[i];
+      vrem += '.';
+      const b = vrem.split('').reverse().join('');
+      a += b;
+      mass.push(a);
+    } else {
+      vrem += str[i];
+    }
+  }
+
+  for (let i = 0; i < mass.length; i++) {
+    let d = 0;
+    for (let j = 0; j < mass.length; j++) {
+      if (mass[i] === mass[j]) {
+        d++;
+      }
+    }
+    obj[mass[i]] = d;
+  }
+  return obj;
 }
 
 module.exports = getDNSStats;
